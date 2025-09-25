@@ -10,7 +10,7 @@ This project demonstrates:
 ---
 
 ## 📸 Preview
-![Demo Screenshot](https://via.placeholder.com/800x400.png?text=Project+Preview)
+![Demo Screenshot](anime-anime-boys-picture-in-picture-kimetsu-no-yaiba-kamado-tanjirō-hd-wallpaper-preview.jpg)
 
 ---
 
