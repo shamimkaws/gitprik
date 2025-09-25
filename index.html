@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tiny Interactive Page</title>
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#ffffff; --text:#0f1724; --accent:#6366f1;
+      --glass: rgba(255,255,255,0.6);
+    }
+    [data-theme="dark"]{
+      --bg:#0b1220; --card:#071020; --text:#e6eef8; --accent:#7c83ff; --glass: rgba(255,255,255,0.04);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(180deg,var(--bg), #e9eefc 60%);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+      transition:background .35s ease, color .35s ease;
+    }
+
+    .container{
+      width:100%;
+      max-width:980px;
+      display:grid;
+      gap:18px;
+      grid-template-columns: 1fr 360px;
+      align-items:start;
+    }
+
+    header{
+      grid-column:1/-1;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:6px;
+    }
+
+    h1{margin:0;font-size:1.4rem;letter-spacing:-0.4px}
+    p.lead{margin:6px 0 0;color:rgba(0,0,0,0.6); font-size:0.95rem}
+    [data-theme="dark"] p.lead{color:rgba(230,238,248,0.7)}
+
+    .card{
+      background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.02));
+      border-radius:14px;
+      padding:18px;
+      box-shadow: 0 6px 18px rgba(8,15,30,0.08);
+      backdrop-filter: blur(6px);
+    }
+
+    .big-card{
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .controls{display:flex; gap:12px; align-items:center}
+    .btn{
+      border:0;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      background:var(--accent);
+      color:white;
+      box-shadow:0 6px 14px rgba(99,102,241,0.18);
+    }
+    .btn.ghost{
+      background:transparent;
+      color:var(--text);
+      border:1px solid rgba(0,0,0,0.06);
+    }
+
+    form.row{display:flex; gap:8px; align-items:center}
+    input[type="text"]{
+      flex:1;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(15,23,36,0.06);
+      font-size:0.95rem;
+      background:transparent;
+      color:var(--text);
+    }
+
+    .stat{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px;
+      border-radius:10px;
+      background:var(--glass);
+    }
+
+    /* animated sample card */
+    .sample{
+      border-radius:12px;
+      padding:14px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      transition:transform .25s ease, box-shadow .25s ease;
+      cursor:pointer;
+    }
+    .sample:hover{ transform:translateY(-6px); box-shadow:0 10px 30px rgba(2,6,23,0.12) }
+
+    .avatar{
+      width:56px;height:56px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--accent), #9fa8ff);
+      color:white;font-weight:700;font-size:20px;
+      box-shadow: inset 0 -6px 18px rgba(0,0,0,0.08);
+    }
+
+    footer{grid-column:1/-1;text-align:center;color:rgba(0,0,0,0.45);font-size:0.85rem;padding-top:4px}
+    [data-theme="dark"] footer{color:rgba(230,238,248,0.45)}
+
+    @media (max-width:880px){
+      .container{grid-template-columns:1fr; padding:6px}
+      .big-card{order:2}
+    }
+  </style>
+</head>
+<body>
+  <div class="container card big-card" id="app">
+    <header>
+      <div>
+        <h1>My Tiny Demo</h1>
+        <p class="lead">A single-file HTML example: form, dark mode, and an animated card.</p>
+      </div>
+
+      <div class="controls">
+        <button id="themeBtn" class="btn ghost" title="Toggle theme">Toggle Dark</button>
+        <button id="surprise" class="btn" title="Click for fun">Surprise</button>
+      </div>
+    </header>
+
+    <!-- main left column -->
+    <section style="display:flex;flex-direction:column;gap:12px">
+      <div class="card">
+        <strong>Say hi 👋</strong>
+        <p style="margin:8px 0 10px;color:rgba(0,0,0,0.6)">Type your name and press Greet.</p>
+        <form id="gForm" class="row" onsubmit="return false;">
+          <input id="name" type="text" placeholder="Your name (e.g. Shamim)" />
+          <button id="greet" class="btn">Greet</button>
+        </form>
+        <div id="greeting" style="margin-top:12px;font-weight:600"></div>
+      </div>
+
+      <div class="card sample" id="sampleCard" role="button" tabindex="0">
+        <div class="avatar" aria-hidden="true">Hi</div>
+        <div style="flex:1">
+          <div style="font-weight:700">Interactive Card</div>
+          <div style="font-size:0.9rem;color:rgba(0,0,0,0.6);margin-top:6px">Hover to lift. Click for a tiny animation.</div>
+        </div>
+        <div style="font-weight:700;opacity:0.9">→</div>
+      </div>
+
+      <div class="card stat" id="counterStat">
+        <div>
+          <div style="font-size:0.95rem;font-weight:700">Clicks</div>
+          <div style="font-size:0.85rem;color:rgba(0,0,0,0.6)">How many times you clicked Surprise</div>
+        </div>
+        <div id="clickCount" style="font-size:1.6rem;font-weight:800">0</div>
+      </div>
+    </section>
+
+    <!-- right column -->
+    <aside>
+      <div class="card">
+        <strong>Quick tips</strong>
+        <ul style="margin:10px 0 0;padding-left:18px;line-height:1.6;color:rgba(0,0,0,0.7)">
+          <li>Open dev tools (F12) to experiment with the code.</li>
+          <li>Try dark mode. The page remembers your choice in localStorage.</li>
+          <li>Modify the styles and see immediate results.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:12px;text-align:center">
+        <small style="display:block;margin-bottom:8px;color:rgba(0,0,0,0.6)">Made with plain HTML/CSS/JS</small>
+        <button id="reset" class="btn ghost">Reset Theme</button>
+      </div>
+    </aside>
+
+    <footer>
+      Tip: copy this file and open it in your browser. Edit freely. ✅
+    </footer>
+  </div>
+
+  <script>
+    // Simple, readable JS — no frameworks
+    const themeKey = 'tiny_demo_theme';
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const resetBtn = document.getElementById('reset');
+    const surprise = document.getElementById('surprise');
+    const clickCountEl = document.getElementById('clickCount');
+    const gForm = document.getElementById('gForm');
+    const nameInput = document.getElementById('name');
+    const greeting = document.getElementById('greeting');
+    const sampleCard = document.getElementById('sampleCard');
+
+    // load stored theme
+    const saved = localStorage.getItem(themeKey);
+    if (saved === 'dark') root.setAttribute('data-theme','dark');
+
+    function toggleTheme(){
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      if (isDark) { root.removeAttribute('data-theme'); localStorage.removeItem(themeKey); }
+      else { root.setAttribute('data-theme','dark'); localStorage.setItem(themeKey,'dark'); }
+    }
+    themeBtn.addEventListener('click', toggleTheme);
+    resetBtn.addEventListener('click', ()=>{ root.removeAttribute('data-theme'); localStorage.removeItem(themeKey); });
+
+    // greeting
+    gForm.addEventListener('submit', ()=>{});
+    document.getElementById('greet').addEventListener('click', (e)=>{
+      e.preventDefault();
+      const val = nameInput.value.trim();
+      if(!val){ greeting.textContent = 'Please type your name 🙂'; return; }
+      greeting.textContent = `Hello, ${val}! Nice to meet you 👋`;
+      nameInput.value = '';
+    });
+
+    // surprise counter
+    let clicks = 0;
+    surprise.addEventListener('click', ()=>{
+      clicks++;
+      clickCountEl.textContent = clicks;
+      // playful animation: briefly pulse the card
+      sampleCard.animate([
+        { transform: 'scale(1)' },
+        { transform: 'scale(1.03)' },
+        { transform: 'scale(1)' }
+      ], { duration: 300, easing: 'ease-out' });
+    });
+
+    // card click — produces a small confetti-ish dots using DOM
+    sampleCard.addEventListener('click', (e)=>{
+      for(let i=0;i<8;i++){
+        const dot = document.createElement('span');
+        dot.textContent = '•';
+        dot.style.position = 'fixed';
+        dot.style.left = (e.clientX + (Math.random()-0.5)*60) + 'px';
+        dot.style.top = (e.clientY + (Math.random()-0.5)*60) + 'px';
+        dot.style.fontSize = (10 + Math.random()*18) + 'px';
+        dot.style.opacity = '0.95';
+        dot.style.pointerEvents = 'none';
+        dot.style.transform = 'translateY(0)';
+        dot.style.transition = 'transform 900ms cubic-bezier(.2,.9,.2,1), opacity 900ms';
+        document.body.appendChild(dot);
+        requestAnimationFrame(()=> {
+          dot.style.transform = `translateY(${ -40 - Math.random()*80 }px) translateX(${ -40 + Math.random()*80 }px) rotate(${Math.random()*160-80}deg)`;
+          dot.style.opacity = '0';
+        });
+        setTimeout(()=> dot.remove(), 950);
+      }
+    });
+
+   
+    window.addEventListener('keydown', (ev)=>{
+      if(ev.key.toLowerCase()==='d' && (ev.ctrlKey || ev.metaKey) === false){
+        toggleTheme();
+      }
+    });
+  </script>
+</body>
+</html>
