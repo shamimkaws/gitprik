@@ -1,29 +1,29 @@
-**my reposit**
-my reposit
+# 🌐 Interactive HTML + CSS Demo
 
-![My photo](anime-anime-boys-picture-in-picture-kimetsu-no-yaiba-kamado-tanjirō-hd-wallpaper-preview.jpg)
+A simple, responsive, and interactive demo page built with **HTML**, **CSS**, and a bit of **JavaScript**.  
+This project demonstrates:
+- 🌙 Dark mode toggle
+- 👋 Greeting form
+- 🎴 Animated card with hover effects
+- 📱 Responsive grid layout
 
+---
 
-# My Demo Project
+## 📸 Preview
+![Demo Screenshot](https://via.placeholder.com/800x400.png?text=Project+Preview)
 
-This is a small interactive HTML + CSS demo page.  
-It includes:
-- Dark mode toggle 🌙
-- Greeting form 👋
-- Animated card 🎴
-*** Dark mode toggle ***
+---
 
-## 🚀 How to use
-1. Clone the repo:
+## 🚀 Features
+- **Modern UI** with glassmorphism and animations  
+- **Dark / Light Mode** toggle with localStorage memory  
+- **Interactive Greeting Form**  
+- **Hover Animations** on cards  
+- **Mobile Responsive Design**
+
+---
+
+## 🛠️ Installation & Usage
+1. Clone the repository:
    ```bash
    git clone https://github.com/shamimkaws/gitprik.git
-
-
-
-# BOLD 
- ** bold **
-
-# Italic
- *italic*
-
- <u>This is underlined</u>
